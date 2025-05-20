@@ -70,7 +70,7 @@ def check_equation(assignment, operand1, operand2, result, operator):
 def backtrack(assignment, letters, index, used_digits, leading_letters, operand1, operand2, result_word, operator):
     """Sử dụng backtracking để tìm gán hợp lệ của các chữ số cho các chữ cái."""
     if index == len(letters):
-        # Kiểm tra xem gán hiện tại có thỏa mãn phương trình không
+        # Kiểm tra xem gán hiện tại có thỏa mãn phương trình không (Điểm khác so với khi dùng Brute Force)
         if check_equation(assignment, operand1, operand2, result_word, operator):
             return assignment
         return None
@@ -79,7 +79,7 @@ def backtrack(assignment, letters, index, used_digits, leading_letters, operand1
     # Thử từng chữ số có sẵn
     for digit in range(10):
         if digit not in used_digits:
-            # Bỏ qua số 0 cho các chữ cái dẫn đầu
+            # Bỏ qua số 0 cho các chữ cái dẫn đầu (ràng buộc (constraint))
             if digit == 0 and letter in leading_letters:
                 continue
             # Gán chữ số cho chữ cái
@@ -92,7 +92,7 @@ def backtrack(assignment, letters, index, used_digits, leading_letters, operand1
             if solution:
                 return solution
                 
-            # Quay lui: xóa gán và chữ số
+            # Quay lui: xóa gán và chữ số (Backtrack)
             del assignment[letter]
             used_digits.remove(digit)
     
